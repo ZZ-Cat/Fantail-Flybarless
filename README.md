@@ -57,6 +57,9 @@
    - All Kp, Ki & Kd gains will be brought out, to be adjusted by the user.
  * Spektrum SRXL2 receiver interface.
    - This is the only open source protocol that I know of, that is used in the RC hobby.
+ * Write up the Wiki.
+   - As the Fantail Flybarless project evolves, a Wiki will need to be written up & it will be available right here, on GitHub.
+   That will be where all of Fantail's documentation will reside.
 
 ## Errata:
  * TBD.
