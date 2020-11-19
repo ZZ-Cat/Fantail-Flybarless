@@ -24,7 +24,8 @@
     • YouTube: [COMING SOON]
 
    Get the source code & build your own:
-    • GitHub: [COMING SOON]
+    • GitHub: https://bit.ly/FantailFlybarless
+              https://bit.ly/FantailSource
 
 */
 
