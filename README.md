@@ -45,8 +45,10 @@
    - At some point down the track, I want to restructure Fantail's code to be a lot cleaner than what it is, currently.
    - I²C Bus Scanning. Both the PCA9685 & BNO055 chips run on the I²C Bus & doing a clean sweep of the I²C Bus on startup would provide a better way of detecting connected devices, than what's already been implemented.
  * Fork the libraries that Fantail uses?
-   - I'm in two minds of doing this. If I do it, that removes Fantail's current dependencies on third party libraries. Though, it would be up to me, to ensure that those same libraries are canonically identical to their originals - Including updating to their latest versions, when their respective developers release updates. In a way, I am already doing this with FreeRTOS, as I'm having to adapt it to compile in the Arduino IDE.
-   If I don't do it, that puts the responsibility of chasing down Fantail's dependencies on anyone that were to obtain the source code. In the case of FreeRTOS, that means YOU would have to create your own Arduino adaptation of it; & I know full well how much of a headache creating an Arduino port of ANY common-place API can be (& FreeRTOS is no exception to this).
+   - I'm in two minds of doing this.
+   If I do it, that removes Fantail's current dependencies on third party libraries. Though, it would be up to me, to ensure that those same libraries are canonically identical to their originals - Including updating to their latest versions, when their respective developers release updates.
+   In a way, I am already doing this with FreeRTOS, as I'm having to adapt it to compile in the Arduino IDE.
+   If I don't do it, that puts the burden of chasing down Fantail's dependencies on anyone that were to obtain the source code. In the case of FreeRTOS, that means YOU would have to create your own Arduino adaptation of it; & I know full well how much of a headache creating an Arduino port of ANY common-place API can be (& FreeRTOS is no exception to this).
  * 9-DoF Orientation Sensor.
    - Sensor is a Bosch Sensortec BNO055. This is found on Adafruit's Absolute Orientation Sensor development board.
    - It has built-in Euler & Quaternion units, as well as being able to read raw gyroscope, accelerometer & magnetometer data.
