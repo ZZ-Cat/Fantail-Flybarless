@@ -63,6 +63,7 @@
 ## Contributing:
  * Read the Contributing Guidelines for details; & make sure you're thick-skinned, because it's a no holds barred approach.
 
-
+## Software License:
+![GNU GPL v3](https://www.gnu.org/graphics/gplv3-with-text-136x68.png)
 
 Fantail Flybarless © 2020. Cassandra "ZZ Cat" Robinson. All rights reserved.
