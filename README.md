@@ -39,6 +39,14 @@
    - This allows compensation for the rising-&-settling behavior of 120° swashplates, that are connected to slow servos.
 
 ## What's Next (IE What will be implemented in future updates):
+ * Update the code.
+   - FreeRTOS 10.4.2 has been released & Fantail needs to be updated to use this.
+   - The code needs to have exception (try-throw-catch) blocks, with proper error handling. Currently, I'm not happy with the way Fantail handles errors.
+   - At some point down the track, I want to restructure Fantail's code to be a lot cleaner than what it is, currently.
+   - I²C Bus Scanning. Both the PCA9685 & BNO055 chips run on the I²C Bus & doing a clean sweep of the I²C Bus on startup would provide a better way of detecting connected devices, than what's already been implemented.
+ * Fork the libraries that Fantail uses?
+   - I'm in two minds of doing this. If I do it, that removes Fantail's current dependencies on third party libraries. Though, it would be up to me, to ensure that those same libraries are canonically identical to their originals - Including updating to their latest versions, when their respective developers release updates. In a way, I am already doing this with FreeRTOS, as I'm having to adapt it to compile in the Arduino IDE.
+   If I don't do it, that puts the responsibility of chasing down Fantail's dependencies on anyone that were to obtain the source code. In the case of FreeRTOS, that means YOU would have to create your own Arduino adaptation of it; & I know full well how much of a headache creating an Arduino port of ANY common-place API can be (& FreeRTOS is no exception to this).
  * 9-DoF Orientation Sensor.
    - Sensor is a Bosch Sensortec BNO055. This is found on Adafruit's Absolute Orientation Sensor development board.
    - It has built-in Euler & Quaternion units, as well as being able to read raw gyroscope, accelerometer & magnetometer data.
@@ -65,5 +73,18 @@
 
 ## Software License:
 ![GNU GPL v3](https://www.gnu.org/graphics/gplv3-with-text-136x68.png)
+
+## Why I have decided against the use of UAVCAN:
+ When I did the initial release of Fantail here, on GitHub, I hinted at a possible implementation of CAN (Control Area Network) in a future update.
+ I have back-tracked on this idea & have decided not to do it.
+ From what my research tells me, I would need to have a CAN Bus going from Fantail out to one (or more) CAN-to-PWM adapter(s), where the adapters are hooked up to the helicopter's servos & ESC (motor controller) - Because these still rely on PWM to do whatever-it-is that they need to do.
+ The RC receiver (what plugs into Fantail's SRXL2 port) uses a half-duplex UART protocol. So, Fantail would almost double as an SRXL2-to-UAVCAN adapter; & for every adapter, to me, that's a bottle-neck - IE another device that can complicate a process that is quite simple. Not only that, there is also the power consumption that I need to think of as well. Each CAN-to-PWM adapter would need to have another microcontroller, what translates the UAVCAN data to PWM Servo Data (this includes the ESC too, because it relies on the same PWM signal that the servos use).
+
+ So, in order to properly implement CAN (more specifically, UAVCAN), the entire helicopter's avionic ecosystem would need to be on the CAN Bus.
+ This would mean each servo's controller board (the electronics what's inside the servo itself) would need to have a UAVCAN interface; the ESC would need to have its own integrated UAVCAN interface; the battery management system would need its own UAVCAN interface; the receiver, rather than using SRXL2, would also need to have its own UAVCAN interface; & only then, can Fantail make a sensible use of UAVCAN. But, if I do that, I would lose compatibility with off-the-shelf avionics. Because nobody manufactures servos, ESCs, receivers & battery management systems for RC helicopters that use UAVCAN, period. I would be the only one doing it; & I see that as a major disadvantage, what will forever outweigh any possible benefits that UAVCAN may bring to the Fantail Flybarless project.
+
+## Why I have decided against the use of GPS:
+ Because I am constantly reminded of the KISS Theory throughout this (& other) project(s) - Keep It Simple, Stupid. This is also the other reason why I went against UAVCAN too. The very second I bring either of these two things into the picture, the software's complexity increases. Also, I'll start falling down the rabbit hole, that is "Creeping Feature-itis", where I'll wind up promising gold & you guys will get nickel-plated fecal matter. That's not how I roll.
+ I want Fantail to be as skookum as what's commercially available (EG BeastX Micro Beast, MSH Brain, Spirit etc), if not better than Fantail's commercial counterparts.
 
 Fantail Flybarless © 2020. Cassandra "ZZ Cat" Robinson. All rights reserved.
