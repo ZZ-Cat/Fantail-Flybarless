@@ -11,12 +11,12 @@
 ## Description:
  Electronic stabilization for radio controlled helicopters.
 
+ Fantail is in its early stages of development & a lot of the core functionality is yet to be implemented.
+
  Fantail is an electronic flybarless stabilization unit, that's designed for use in radio controlled helicopters.
  For those that fly radio controlled helicopters, you already have a fair idea of what flybarless units are (&, by extension, what this is).
  For those that don't, a flybarless unit is a device that helps maintain flight stability, without sacrificing control inputs from the pilot.
-
- As far as flybarless units go, Fantail doesn't really bring anything new to the table. Other than the fact that it's entirely open source;
- it's programmed in the Arduino IDE; & its components can be sourced from places like Adafruit & Mouser.
+ How Fantail does this, is by its use of a multi-axis PID controller, which reads orientation data off of a nine degrees-of-freedom sensor & combines that with the pilot's control data from their transmitter & then, sends it out to the helicopter's servos & ESC.
 
 ## Features (IE What's been implemented thus far, & works):
  * Microchip SAM D21 ARM Cortex M0+ microcontroller.
