@@ -18,7 +18,7 @@
    You should have received a copy of the GNU General Public License along with Fantail Flybarless. If not, see https://www.gnu.org/licenses/.
 
    Follow the project on social media:
-    • Facebook: #FantailFlybarless
+    • Facebook: https://www.facebook.com/hashtag/fantailflybarless
     • Instagram: [COMING SOON]
     • Twitter: [COMING SOON]
     • YouTube: [COMING SOON]
