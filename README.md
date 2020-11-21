@@ -74,7 +74,8 @@
  * TBD.
 
 ## Contributing:
- * Read the Contributing Guidelines for details; & make sure you're thick-skinned, because it's a no holds barred approach.
+ * Read through the software license file & the Terms & Conditions file.
+ * Read the Contributing Guidelines; & make sure you're thick-skinned, because it's a no holds barred approach.
 
 ## Software License:
 ![GNU GPL v3](https://www.gnu.org/graphics/gplv3-with-text-136x68.png)
