@@ -3,8 +3,8 @@
    Electronic stabilization for radio controlled helicopters.
    #Arduino #FantailFlybarless #KeepRcHelisAlive
 
-   Version: 0.11.4
-   Date: November 10, 2020
+   Version: 0.12.0
+   Date: November 28, 2020
    Author: Cassandra "ZZ Cat" Robinson.
 
    Copyright © 2020, Cassandra "ZZ Cat" Robinson. All rights reserved.
@@ -34,8 +34,8 @@
 
 // Project definitions - For data logging & debugging purposes.
 #define __PROJECT_NAME__        "Fantail Flybarless"
-#define __PROJECT_BUILD_DATE__  "November 10, 2020"
-#define __PROJECT_VERSION__     "0.11.4"
+#define __PROJECT_BUILD_DATE__  "November 28, 2020"
+#define __PROJECT_VERSION__     "0.12.0"
 
 // Compilation Target Dev Board: Adafruit Feather M0.
 #if defined( ADAFRUIT_FEATHER_M0 )
@@ -90,7 +90,9 @@ const int16_t psPwmPins[ ePwmChannelsCount ] = {
 
 QueueHandle_t xPidDataQueue;
 QueueHandle_t xServoDataQueue;
+QueueHandle_t xExceptionDataQueue;
 TaskHandle_t xPidControlLoopHandle;
+TaskHandle_t xTaskManagerHandle;
 
 typedef enum {
   eReceiver,
@@ -113,10 +115,17 @@ typedef struct {
   ServoDataSource_t eDataSource;
 } ServoData_t;
 
+typedef struct {
+  TaskHandle_t xTskHandle;
+  const char *pcTaskName;
+  uint32_t ulID;
+  const char *pcMsg;
+} ExceptionData_t;
+
 // Firmware initializer.
 int main( void ) {
 
-  vBoardInit( 0 );
+  vBoardInit( 1 );
 
   Wire.begin();
 
@@ -246,21 +255,25 @@ void vPidControlLoop( void *pvParameters ) {
     // [WARNING]: THIS IS A SAFETY FEATURE, TO PREVENT THE HELICOPTER'S POWER TRAIN (& BY EXTENSION, MAIN ROTOR) FROM SPOOLING UP!!!
     try {
 
+      ExceptionData_t xErrorData;
+
       if ( xControlData.psBuffer[ 4 ] > -2048 ) {
 
-        //ucPidControlLoopExceptionError = 1;
-        vPrint( ( String )
-                "[" + pcName + " | EXCEPTION]: ESC Throttle was above -2048.\r\n"
-              );
-        digitalWrite( LED_BUILTIN, HIGH );
-        throw 1;
+        xErrorData.ulID = 0x1;
+        xErrorData.pcMsg = "ESC Throttle was above -2048.";
+        xErrorData.xTskHandle = xTaskGetCurrentTaskHandle();
+        xErrorData.pcTaskName = pcTaskGetName( xErrorData.xTskHandle );
+
+        vWriteError( xErrorData );
+
+        throw xErrorData.ulID;
 
       }
     }
 
-    catch ( uint8_t ucError ) {
+    catch ( uint32_t ulError ) {
 
-
+      /* Task execution stops here. */
 
     }
 
@@ -389,6 +402,22 @@ void vServoFrontEnd( void *pvParameters ) {
   }
 }
 
+void vTaskManager( void *pvParameters ) {
+
+  while ( 1 ) {
+
+    ExceptionData_t xErrorData;
+    xQueueReceive( xExceptionDataQueue, & xErrorData, portMAX_DELAY );
+
+    vPrint( ( String )
+            "Exception in thread: " + xErrorData.pcTaskName + "\r\n" +
+            "Error ID: 0x" + String( xErrorData.ulID, HEX ) + "\r\n" +
+            "Error: " + String( xErrorData.pcMsg ) + "\r\n"
+          );
+
+  }
+}
+
 int16_t sMix( int16_t p_value, int8_t p_mix ) {
 
   bool valneg = p_value < 0;
@@ -492,6 +521,12 @@ void vFreeRtosInit( void ) {
 
   }
 
+  if ( xTaskCreate( vTaskManager, "Tsk Mngr", 256, NULL, tskIDLE_PRIORITY, &xTaskManagerHandle ) != pdPASS ) {
+
+    vPrint( "[SYS | ERROR]: Unable to create Task Manager. Not enough memory.\r\n" );
+
+  }
+
   xPidDataQueue = xQueueCreate( 2, sizeof( PidData_t ) );
   if ( xPidDataQueue == NULL ) {
 
@@ -504,6 +539,13 @@ void vFreeRtosInit( void ) {
   if ( xServoDataQueue == NULL ) {
 
     vPrint( "[SYS | ERROR]: Unable to create Servo Data Queue. Not enough memory.\r\n" );
+
+  }
+
+  xExceptionDataQueue = xQueueCreate( 5, sizeof( ExceptionData_t ) );
+  if ( xExceptionDataQueue == NULL ) {
+
+    vPrint( "[SYS | ERROR]: Unable to create Exception Data Queue. Not enough memory.\r\n" );
 
   }
 }
@@ -534,58 +576,6 @@ void vFreeRtosRun( void ) {
     @Returns:   Nothing.
 */
 extern "C" void vApplicationIdleHook( void ) {
-
-  /*
-    // These lines demonstrate how a task can be automatically restarted, whenever an exception occurs.
-    if ( ucPidControlLoopExceptionError > 0 ) {
-
-    eTaskState eThisState = eTaskGetState( xPidControlLoopHandle );
-    static eTaskState eStateQ;
-    static uint8_t restartPidControlLoop;
-
-    if ( restartPidControlLoop == 1 ) {
-
-      if ( eStateQ == eDeleted ) {
-
-        vPrint( "[SYS | NOTICE]: Restarting PID Control Loop.\r\n" );
-
-        if ( xTaskCreate( vPidControlLoop, "PID", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, &xPidControlLoopHandle ) == pdPASS ) {
-
-          restartPidControlLoop == 2;
-          ucPidControlLoopExceptionError = 0;
-          eThisState = eTaskGetState( xPidControlLoopHandle );
-          vPrint( "[SYS | NOTICE]: PID Control Loop successfully restarted.\r\n" );
-
-        }
-
-        else {
-
-          restartPidControlLoop == 2;
-          ucPidControlLoopExceptionError = 0;
-          vPrint( "[SYS | ERROR]: Unable to restart PID Control Loop. Not enough memory available.\r\n" );
-
-        }
-      }
-    }
-
-    if ( eThisState != eStateQ ) {
-
-      eStateQ = eThisState;
-
-      if ( eStateQ == eDeleted ) {
-
-        if ( restartPidControlLoop == 0 ) restartPidControlLoop = 1;
-
-      }
-
-      else {
-
-        if ( restartPidControlLoop == 0 ) vTaskDelete( xPidControlLoopHandle );
-
-      }
-    }
-    }
-  */
 
   yield();
 
@@ -795,6 +785,13 @@ void vUpdateServos( int16_t *psServoBuffer ) {
   setEaseToForAllServosSynchronizeAndStartInterrupt( 100 );
   while ( areInterruptsActive() );
 #endif
+
+}
+
+void vWriteError( ExceptionData_t xErrorData ) {
+
+  xQueueSendToBack( xExceptionDataQueue, &xErrorData, 0 );
+  vTaskPrioritySet( xErrorData.xTskHandle, tskIDLE_PRIORITY );
 
 }
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------*/
