@@ -53,11 +53,11 @@
 
 ## Requirements:
  * Hardware (For prototyping purposes ONLY):
-   * Adafruit BNO055 Orientation Sensor Breakout.
-   * Adafruit Feather M0.
-   * Adafruit PWM/Servo Feather Wing.
-   * Solderless "breadboard".
-   * Spektrum 4651T SRXL2 Receiver with Telemetry.
+   * [Adafruit BNO055 Orientation Sensor Breakout.](https://www.adafruit.com/product/2472)
+   * [Adafruit Feather M0.](https://www.adafruit.com/product/2772)
+   * [Adafruit PWM/Servo Feather Wing.](https://www.adafruit.com/product/2928)
+   * [Solderless "breadboard".](https://www.adafruit.com/product/239)
+   * [Spektrum 4651T SRXL2 Receiver with Telemetry.](https://www.spektrumrc.com/Products/Default.aspx?ProdID=SPM4651T)
    * Your helicopter.
  * Software:
    * Adafruit SAMD Board Support Package
