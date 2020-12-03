@@ -6,7 +6,7 @@
 [Keep it that way](https://www.defectivebydesign.org/what_is_drm_digital_restrictions_management)
 
 ### Written & developed by:
- [![](https://sourcerer.io/fame/ZZ-Cat/ZZ-Cat/Fantail-Flybarless/images/0)](https://sourcerer.io/fame/ZZ-Cat/ZZ-Cat/Fantail-Flybarless/links/0)[![](https://sourcerer.io/fame/ZZ-Cat/ZZ-Cat/Fantail-Flybarless/images/1)](https://sourcerer.io/fame/ZZ-Cat/ZZ-Cat/Fantail-Flybarless/links/1)[![](https://sourcerer.io/fame/ZZ-Cat/ZZ-Cat/Fantail-Flybarless/images/2)](https://sourcerer.io/fame/ZZ-Cat/ZZ-Cat/Fantail-Flybarless/links/2)[![](https://sourcerer.io/fame/ZZ-Cat/ZZ-Cat/Fantail-Flybarless/images/3)](https://sourcerer.io/fame/ZZ-Cat/ZZ-Cat/Fantail-Flybarless/links/3)[![](https://sourcerer.io/fame/ZZ-Cat/ZZ-Cat/Fantail-Flybarless/images/4)](https://sourcerer.io/fame/ZZ-Cat/ZZ-Cat/Fantail-Flybarless/links/4)[![](https://sourcerer.io/fame/ZZ-Cat/ZZ-Cat/Fantail-Flybarless/images/5)](https://sourcerer.io/fame/ZZ-Cat/ZZ-Cat/Fantail-Flybarless/links/5)[![](https://sourcerer.io/fame/ZZ-Cat/ZZ-Cat/Fantail-Flybarless/images/6)](https://sourcerer.io/fame/ZZ-Cat/ZZ-Cat/Fantail-Flybarless/links/6)[![](https://sourcerer.io/fame/ZZ-Cat/ZZ-Cat/Fantail-Flybarless/images/7)](https://sourcerer.io/fame/ZZ-Cat/ZZ-Cat/Fantail-Flybarless/links/7)
+ [Cassandra "ZZ Cat" Robinson](https://bit.ly/ZZCatOnFacebook)
 
 ## Description:
  Electronic stabilization for radio controlled helicopters.
