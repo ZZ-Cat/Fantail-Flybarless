@@ -24,7 +24,8 @@
    - Clocked at 48 MHz.
  * Firmware is updatable over USB.
  * FreeRTOS.
-   - Fantail is driven by FreeRTOS, version 10.4.2.
+   - Fantail's beating heart & soul.
+   - Multi-tasking is efficiently managed by the OS, which has an advantage over the traditional single thread loop.
  * Servo Front End.
    - A dedicated task, that manages all communications to the servos & ESC is called the "Servo Front End".
    - All servo channels are synchronized & get updated whenever the Servo Front End receives new control data.
@@ -51,7 +52,19 @@
  * TBD.
 
 ## Requirements:
- * TBD.
+ * Hardware (For prototyping purposes ONLY):
+   * Adafruit BNO055 Orientation Sensor Breakout.
+   * Adafruit Feather M0.
+   * Adafruit PWM/Servo Feather Wing.
+   * Solderless "breadboard".
+   * Spektrum 4651T SRXL2 Receiver with Telemetry.
+   * Your helicopter.
+ * Software:
+   * Adafruit SAMD Board Support Package
+   * [Arduino IDE](https://www.arduino.cc/en/software)
+   * Arduino SAMD Board Support Package
+   * [FreeRTOS](https://github.com/FreeRTOS/FreeRTOS-Kernel/releases)
+   * [Servo Easing](https://github.com/ArminJo/ServoEasing/releases)
 
 ## How to obtain:
  * TBD.
@@ -67,11 +80,10 @@
 
 ## Software License:
 ![GNU GPL v3](https://www.gnu.org/graphics/gplv3-with-text-136x68.png)
-
 Fantail Flybarless © 2020. Cassandra "ZZ Cat" Robinson. All rights reserved.
 
 # Developer's Footnotes
-### Written by Cassandra "ZZ Cat" Robinson.
+###### Written by Cassandra "ZZ Cat" Robinson.
 
 ## Why I have decided against the use of UAVCAN:
  When I did the initial release of Fantail here, on GitHub, I hinted at a possible implementation of CAN (Control Area Network) in a future update.
