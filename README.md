@@ -60,8 +60,8 @@
    * [Spektrum 4651T SRXL2 Receiver with Telemetry.](https://www.spektrumrc.com/Products/Default.aspx?ProdID=SPM4651T)
    * Your helicopter.
  * Software:
-   * Adafruit SAMD Board Support Package
    * [Arduino IDE](https://www.arduino.cc/en/software)
+   * Adafruit SAMD Board Support Package
    * Arduino SAMD Board Support Package
    * [FreeRTOS](https://github.com/FreeRTOS/FreeRTOS-Kernel/releases)
    * [Servo Easing](https://github.com/ArminJo/ServoEasing/releases)
