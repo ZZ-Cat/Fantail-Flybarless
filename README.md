@@ -85,7 +85,7 @@
 
 ## Software License:
 ![GNU GPL v3](https://www.gnu.org/graphics/gplv3-with-text-136x68.png)
-Fantail Flybarless © 2020. Cassandra "ZZ Cat" Robinson. All rights reserved.
+Fantail Flybarless © 2020-2022. Cassandra "ZZ Cat" Robinson. All rights reserved.
 
 # Developer's Footnotes
 ###### Written by Cassandra "ZZ Cat" Robinson.
