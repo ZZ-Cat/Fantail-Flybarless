@@ -56,9 +56,6 @@
  * Spektrum SRXL2 receiver interface.
    - This is the only open source protocol that I know of, that is used in the RC hobby.
 
-## Errata:
- * TBD.
-
 ## Requirements:
  * Hardware (For prototyping purposes ONLY):
    * [Adafruit BNO055 Orientation Sensor Breakout.](https://www.adafruit.com/product/2472)
@@ -73,12 +70,6 @@
    * Arduino SAMD Board Support Package
    * [FreeRTOS](https://github.com/FreeRTOS/FreeRTOS-Kernel/releases)
    * [Servo Easing](https://github.com/ArminJo/ServoEasing/releases)
-
-## How to obtain:
- * TBD.
-
-## Quick Start Guide:
- * TBD.
 
 ## Contributing:
  * Contributions to this project have been discontinued.
